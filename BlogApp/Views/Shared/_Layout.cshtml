@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BlogApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BlogApp.styles.css" asp-append-version="true" />
+</head>
+<body class="bg-light">
+    <header>
+        <nav class="navbar navbar-expand-lg py-3 bg-white">
+            <div class="pe-lg-0 ps-lg-5 container-fluid justify-content-between">
+                <a class="navbar-brand" href="/home/index">
+                    <img src="~/img/b_logo.png" height="60" alt="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <div class="nav_left d-lg-flex align-items-center">
+                        <nav>
+                            <div class="nav d-block d-lg-flex nav-tabs" id="nav-tab" role="tablist">
+                                <a href="/home/index">
+                                    <button class="nav-link" id="courses-tab" data-bs-target="#courses" aria-controls="courses">
+                                        Anasayfa
+                                    </button>
+                                </a>
+                                <a href="/posts">
+                                    <button class="nav-link" id="courses-tab" data-bs-target="#courses" aria-controls="courses">
+                                        Post
+                                    </button>
+                                </a>
+                                @if (User.Identity!.IsAuthenticated) //oturum açılmışsa yada açılmamışsa
+                                {
+                                    <a href="/posts/list">
+                                        <button class="nav-link" id="courses-tab" data-bs-target="#courses" aria-controls="courses">
+                                            Post Listesi
+                                        </button>
+                                    </a>                                
+                                }
+
+                                @* <a href="/users/login">
+                                    <button class="nav-link" id="courses-tab" data-bs-target="#courses" aria-controls="courses">
+                                        Login
+                                    </button>
+                                </a> *@
+                            </div>
+                        </nav>
+
+                        <ul class="navbar-nav ms-auto" style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+                            @if (User.Identity!.IsAuthenticated) //oturum açılmışsa yada açılmamışsa
+                            {
+                                <li class="nav-item">
+                                    <a href="#" style="color:white;" class="nav-link">@User.Identity.Name</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/users/logout" style="color:white" class="nav-link">Logout</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a href="/users/login" style="color:white" class="nav-link">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/users/register" style="color:white" class="nav-link">Register</a>
+                                </li>
+                            }
+                        </ul>
+
+                        <div class="position-relative d-inline-block me-lg-4">
+                            <input class="search_input ms-5 mb-3 mb-lg-0 ms-lg-0 pe-5 ps-3" type="search" placeholder="Search"
+                                   aria-label="Search">
+                            <img class="position-absolute search_img" src="~/img/search.svg" width="16" height="16"
+                                 alt="twitter">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="mt-2 pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - BlogApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
